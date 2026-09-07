@@ -9,6 +9,8 @@
 - Tailwind CSS v4
 - Framer Motion (animation)
 - react-icons
+- Three.js + React Three Fiber (Hero 3D tải riêng)
+- Playwright (kiểm thử trình duyệt)
 
 ## Scripts
 
@@ -18,6 +20,8 @@ npm run dev      # dev server → http://localhost:3000
 npm run build    # build production
 npm run start    # chạy bản production
 npm run lint     # eslint
+npm run typecheck # TypeScript
+npm run test:motion # responsive, reduced motion, WebGL lifecycle
 ```
 
 ## Cấu trúc
@@ -26,7 +30,8 @@ npm run lint     # eslint
 src/
 ├── app/                 # App Router (layout, page, globals.css)
 ├── components/
-│   ├── animations/      # FadeIn, ScrollReveal
+│   ├── animations/      # MotionProvider, reveal, parallax, tilt, magnetic
+│   ├── three/           # HeroVisual, HeroScene, FloatingObject, SceneLights
 │   ├── sections/        # Hero, About, Experience, Skills, Projects, Contact
 │   └── ui/              # Button, Card, Input, Navbar, Footer
 ├── data/                # Dữ liệu tĩnh: profile, experiences, skills, projects
@@ -43,6 +48,10 @@ Toàn bộ nội dung hiển thị (tên, role, kinh nghiệm, skill, project, l
 - `data/experiences.ts` — danh sách kinh nghiệm làm việc.
 - `data/skills.ts` — tech stack hiển thị ở section Skills.
 - `data/projects.ts` — danh sách dự án nổi bật.
+
+## Motion & 3D
+
+Xem [phân tích, kiến trúc motion và cách kiểm thử](docs/motion-refactor.md). Nút tạm dừng chuyển động nằm ở góc trên phải card số 7; website cũng tự theo thiết lập reduced motion của hệ điều hành.
 
 ## Deploy
 

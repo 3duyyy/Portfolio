@@ -1,14 +1,14 @@
 "use client"
 import { useEffect, useRef, useState } from "react"
 
-export function useTypingEffect(words: string[], speed = 80, pause = 1500) {
-  const [text, setText] = useState("")
+export function useTypingEffect(words: string[], speed = 80, pause = 1500, enabled = true) {
+  const [text, setText] = useState(words[0] ?? "")
   const wordIdxRef = useRef(0)
-  const charIdxRef = useRef(0)
-  const deletingRef = useRef(false)
+  const charIdxRef = useRef(Array.from(words[0] ?? "").length)
+  const deletingRef = useRef(true)
 
   useEffect(() => {
-    if (!words.length) return
+    if (!words.length || !enabled) return
 
     let timer: ReturnType<typeof setTimeout>
 
@@ -41,9 +41,9 @@ export function useTypingEffect(words: string[], speed = 80, pause = 1500) {
       }
     }
 
-    timer = setTimeout(tick, speed)
+    timer = setTimeout(tick, pause)
     return () => clearTimeout(timer)
-  }, [words, speed, pause])
+  }, [words, speed, pause, enabled])
 
   return text
 }

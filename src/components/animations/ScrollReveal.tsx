@@ -1,6 +1,9 @@
 "use client"
-import { motion, type Variants } from "framer-motion"
+import { m } from "framer-motion"
 import type { ReactNode } from "react"
+import { useMotionPreferences } from "./MotionProvider"
+import { itemVariants, revealViewport } from "./tokens"
+import { cn } from "@/lib/utils"
 
 interface Props {
   children: ReactNode
@@ -8,31 +11,36 @@ interface Props {
   stagger?: number
 }
 
-const container: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-}
-
-export const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-}
+export { itemVariants } from "./tokens"
 
 export default function ScrollReveal({ children, className, stagger = 0.1 }: Props) {
+  const { canAnimate } = useMotionPreferences()
   return (
-    <motion.div
+    <m.div
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={revealViewport}
       variants={{
         hidden: {},
-        visible: { transition: { staggerChildren: stagger } },
+        visible: { transition: { staggerChildren: canAnimate ? stagger : 0 } },
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }
 
-export { container }
+export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
+  const { canAnimate } = useMotionPreferences()
+  return (
+    <m.div
+      className={cn("motion-reveal", className)}
+      variants={
+        canAnimate ? itemVariants : { hidden: { opacity: 1 }, visible: { opacity: 1, transition: { duration: 0 } } }
+      }
+    >
+      {children}
+    </m.div>
+  )
+}

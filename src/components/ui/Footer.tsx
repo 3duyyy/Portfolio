@@ -9,7 +9,7 @@ export default function Footer() {
           © {new Date().getFullYear()} {profile.name}. Built with Next.js & ❤
         </p>
         <div className="flex items-center gap-4 text-zinc-400">
-          <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="transition hover:text-sky-400">
+          <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="social-link flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:text-sky-400">
             <FiGithub size={18} />
           </a>
           <a
@@ -17,7 +17,7 @@ export default function Footer() {
             target="_blank"
             rel="noreferrer"
             aria-label="LinkedIn"
-            className="transition hover:text-sky-400"
+            className="social-link flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:text-sky-400"
           >
             <FiLinkedin size={18} />
           </a>
@@ -26,11 +26,11 @@ export default function Footer() {
             target="_blank"
             rel="noreferrer"
             aria-label="Facebook"
-            className="transition hover:text-sky-400"
+            className="social-link flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:text-sky-400"
           >
             <FiFacebook size={18} />
           </a>
-          <a href={`mailto:${profile.email}`} aria-label="Email" className="transition hover:text-sky-400">
+          <a href={`mailto:${profile.email}`} aria-label="Email" className="social-link flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:text-sky-400">
             <FiMail size={18} />
           </a>
         </div>

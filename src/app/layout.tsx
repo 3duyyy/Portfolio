@@ -3,6 +3,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/ui/Navbar"
 import Footer from "@/components/ui/Footer"
+import MotionProvider from "@/components/animations/MotionProvider"
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="vi" className={`${inter.variable} h-full scroll-smooth`}>
+    <html lang="vi" className={`${inter.variable} h-full`}>
       <body className="relative flex min-h-full flex-col antialiased">
         {/* Global decorative backdrop — shared by every section */}
         <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
@@ -44,9 +45,19 @@ export default function RootLayout({
           <div className="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-zinc-950 to-transparent" />
         </div>
 
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <MotionProvider>
+          <a href="#main-content" className="skip-link">
+            Bỏ qua điều hướng
+          </a>
+          <Navbar />
+          <main id="main-content" tabIndex={-1} className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </MotionProvider>
+        <noscript>
+          <style>{".motion-reveal{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
       </body>
     </html>
   )
